@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>T2 Ship Components</title>
+</head>
+
+<body>
+<p><b>Select a date to display price data from:</b></p>
+
+<!-- Drop down menus for date selection -->
+<form>
+	<select name='yearList' id='yearList'>
+		<option value=''>Year:</option>
+	</select>
+	<select name='monthList' id='monthList'>
+		<option value=''>Month:</option>
+	</select>
+	<select name='dayList' id='dayList'>
+		<option value=''>Day:</option>
+	</select>
+</form>
+
+<!-- Display prices once date selected -->
+<br />
+<div id='priceList'></div>
+
+
+<!-- Load jQuery -->
+<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js'></script>
+
+<!-- jQuery scripts -->
+<script type='text/javascript'>
+	$(document).ready(function() {
+		// Initialise year list once document loaded
+		$('#yearList').load('get-dates.php');
+		
+		// Update month list when year selected
+		$('#yearList').change(function() {
+			$('#priceList').html('');
+			$('#dayList').html('<option>Day:</option>');
+			var year = $('#yearList').val();
+			$('#monthList').load('get-dates.php?year='+year);
+		});
+		// Update day list when month selected
+		$('#monthList').change(function() {
+			$('#priceList').html('');
+			var year = $('#yearList').val();
+			var month = $('#monthList').val();
+			$('#dayList').load('get-dates.php?year='+year+'&month='+month);
+		});
+		// Generate price list when day selected
+		$('#dayList').change(function() {
+			var year = $('#yearList').val();
+			var month = $('#monthList').val();
+			var day = $('#dayList').val();
+			$('#priceList').load('get-prices.php?date='+year+'_'+month+'_'+day);
+		});
+	});
+</script>
+</body>
+</html>

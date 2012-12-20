@@ -1,0 +1,78 @@
+<?php
+// Get variables from URL
+$date=$_GET['date'];
+
+// Connect to DB
+$mysqli = new mysqli('localhost', 'wwwEveTools', 'qweasd', 'wwwEveToolsT2Comps');
+if ($mysqli->connect_errno) {
+    die('<p><b>Failed to connect to MySQL: ' . $mysqli->connect_error . '</b></p>');
+}
+
+// Get prices from DB
+$query = 'SELECT * FROM ' . $date;
+$result = $mysqli->query($query);
+$num = $result->num_rows;
+
+if ($num == 0) {
+	die('<p><b>Data missing...</b></p>');
+} else if ($num != 47) {
+	die('<p><b>Data corrupted...</b></p>');
+}
+
+// Export material prices
+echo "<table border='1'>
+<tr>
+<th>Moon Materials</th>
+<th>Jita Price</th>
+</tr>";
+
+for ($i = 0; $i < 11; $i++) {
+	$row = $result->fetch_assoc();
+        echo '<tr>';
+        echo '<td>'.preg_replace('/_/', ' ', $row['item']).'</td>';
+        echo '<td>'.number_format($row['jita_price'], 2).'</td>';
+        echo '</tr>';
+}
+echo '</table>';
+echo '<br />';
+echo '<p>All prices rounded to nearest whole number</p>';
+echo '<br />';
+
+// Export component prices
+for ($i = 11; $i < 47; $i++) {
+	$row = $result->fetch_assoc();
+
+	if (($i-11) % 9 == 0 ) {
+		echo "<table border='1'>";
+		echo '<tr>';
+
+		if ($i == 11)
+			echo '<th>Amarr Components</th>';
+		else if ($i == 20)
+			echo '<th>Caldari Components</th>';
+		else if ($i == 29)
+			echo '<th>Gallente Components</th>';
+		else if ($i == 38)
+			echo '<th>Minmatar Components</th>';
+
+		echo '<th>Jita Price</th>';
+		echo '<th>Cost Price</th>';
+		echo '</tr>';
+	}
+
+	echo '<tr>';
+	echo '<td>' . preg_replace('/_/',' ',$row['item']) . '</td>';
+	echo '<td>' . number_format($row['jita_price']) . '</td>';
+	echo '<td>' . number_format($row['cost_price']) . '</td>';
+	echo '</tr>';
+
+	if (($i-19) % 9 == 0 ) {
+		echo '</table>';
+		echo '<br />';
+	}
+}
+
+// Free results and close DB connection
+$result->close();
+$mysqli->close();
+?>

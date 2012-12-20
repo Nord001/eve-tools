@@ -1,0 +1,110 @@
+body,h1,h2,h3,p,quote,small,form,input,ul,li,ol,label {
+	/* The reset rules */
+	margin:0px;
+	padding:0px;
+}
+
+body {
+	color:#555555;
+	background: #eeeeee;
+	font-family:Arial, Helvetica, sans-serif;
+	width: 100%;
+}
+
+h1 {
+	font-weight:bold;
+	font-family:"Trebuchet MS",Arial, Helvetica, sans-serif;
+	letter-spacing:1px;
+	padding-bottom:4px;
+}
+
+h2 {
+	font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+	font-weight:normal;
+	letter-spacing:1px;
+	padding-left:2px;
+	text-transform:uppercase;
+	white-space:nowrap;
+	margin-top:4px;
+	color:#888888;
+}
+
+.clear {
+	clear:both;
+}
+
+#main {
+	width:800px;
+	/* Centering it in the middle of the page */
+	margin:60px auto;
+}
+
+#main p {
+	padding-bottom:8px;
+}
+
+
+a, a:visited {
+	color:#00BBFF;
+	text-decoration:none;
+	outline:none;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+
+.mainNav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.mainNav ul li {
+	display: inline;
+}
+
+.mainNav ul li a {
+	text-decoration: none;
+	margin: 2px;
+	padding: .2em 1em;
+	color: #555555;
+	background-color: #FFFFFF;
+	/* Rounded corners */
+	-moz-border-radius:20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius:20px;
+}
+
+.mainNav ul li a:hover {
+	color: #FFFFFF;
+	background-color: #336699;
+}
+
+
+.container {
+	margin-top:20px;
+	background:#FFFFFF;
+	border:1px solid #E0E0E0;
+	padding:15px;
+	
+	/* Rounded corners */
+	-moz-border-radius:20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius:20px;
+}
+
+.chart {
+	float: left;
+	width:575px;
+	height:300px;
+}
+
+.legend {
+	float: left;
+	margin-left: 20px;
+}
