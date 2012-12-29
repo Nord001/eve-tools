@@ -72,10 +72,6 @@ a:hover {
 	padding: .2em 1em;
 	color: #555555;
 	background-color: #FFFFFF;
-	/* Rounded corners */
-	-moz-border-radius:20px;
-	-khtml-border-radius: 20px;
-	-webkit-border-radius: 20px;
 	border-radius:20px;
 }
 
@@ -90,11 +86,15 @@ a:hover {
 	background:#FFFFFF;
 	border:1px solid #E0E0E0;
 	padding:15px;
-	
-	/* Rounded corners */
-	-moz-border-radius:20px;
-	-khtml-border-radius: 20px;
-	-webkit-border-radius: 20px;
+	border-radius:20px;
+}
+
+.wideContainer {
+	width:1250px;
+	margin-top:20px;
+	background:#FFFFFF;
+	border:1px solid #E0E0E0;
+	padding:15px;
 	border-radius:20px;
 }
 
