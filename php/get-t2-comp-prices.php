@@ -3,14 +3,14 @@
 $date=$_GET['date'];
 
 // Connect to DB
-$mysqli = new mysqli('localhost', 'wwwEveTools', 'qweasd', 'wwwEveToolsT2Comps');
-if ($mysqli->connect_errno) {
-    die('<p><b>Failed to connect to MySQL: ' . $mysqli->connect_error . '</b></p>');
+$db_t2_comps = new mysqli('localhost', 'eve_tools', 'eve_tools_pw', 'eve_tools_t2_comps');
+if ($db_t2_comps->connect_errno) {
+    die('<p><b>Failed to connect to MySQL: ' . $db_t2_comps->connect_error . '</b></p>');
 }
 
 // Get prices from DB
 $query = 'SELECT * FROM ' . $date;
-$result = $mysqli->query($query);
+$result = $db_t2_comps->query($query);
 $num = $result->num_rows;
 
 if ($num == 0) {
@@ -74,5 +74,5 @@ for ($i = 11; $i < 47; $i++) {
 
 // Free results and close DB connection
 $result->close();
-$mysqli->close();
+$db_t2_comps->close();
 ?>

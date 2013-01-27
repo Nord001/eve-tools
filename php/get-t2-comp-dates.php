@@ -4,9 +4,9 @@ $year = $_GET['year'];
 $month = $_GET['month'];
 
 // Connect to DB
-$mysqli = new mysqli('localhost', 'wwwEveTools', 'qweasd', 'wwwEveToolsT2Comps');
-if ($mysqli->connect_errno) {
-    die('<option>' . $mysqli->connect_error . '</option>');
+$db_t2_comps = new mysqli('localhost', 'eve_tools', 'eve_tools_pw', 'eve_tools_t2_comps');
+if ($db_t2_comps->connect_errno) {
+    die('<option>' . $db_t2_comps->connect_error . '</option>');
 }
 
 // Get dates from DB
@@ -20,7 +20,7 @@ if ($year == '' && $month == '') {
 	$query = "SHOW TABLES LIKE '".$year."_".$month."_%'";
 	echo '<option>Day:</option>';
 }
-$result = $mysqli->query($query);
+$result = $db_t2_comps->query($query);
 
 // List all dates in range
 $date_old = 0;
@@ -41,5 +41,5 @@ while ($row = $result->fetch_row()) {
 
 // Free results and close DB connection
 $result->close();
-$mysqli->close();
+$db_t2_comps->close();
 ?>

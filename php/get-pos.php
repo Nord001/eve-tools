@@ -2,14 +2,18 @@
 // Get variables from URL
 $corp = $_GET['corp'];
 
-// Connect to evetools DB
-$db_evetools = new mysqli('localhost', 'evetools', 'qweasd', 'eve_tools_API');
-if ($db_evetools->connect_errno) {
-    die('<h1>' . $db_evetools->connect_error . '</h1>');
+// DB username and password
+$user = 'eve_tools';
+$pw = 'eve_tools_pw';
+
+// Connect to yapeal DB
+$db_yapeal = new mysqli('localhost', $user, $pw, 'yapeal');
+if ($db_yapeal->connect_errno) {
+    die('<h1>' . $db_yapeal->connect_error . '</h1>');
 }
 
 // Connect to EVE static dump DB
-$db_staticdump = new mysqli('localhost', 'evetools', 'qweasd', 'eveStaticDump');
+$db_staticdump = new mysqli('localhost', $user, $pw, 'eve_static_dump');
 if ($db_staticdump->connect_errno) {
     die('<h1>' . $db_staticdump->connect_error . '</h1>');
 }
@@ -26,7 +30,7 @@ if ($corp == 'kazo') {
 
 // Retrieve list of current POSes
 $query = "SELECT * FROM corpStarbaseList WHERE `ownerID`='".$ownerID."'";
-$res_POS = $db_evetools->query($query);
+$res_POS = $db_yapeal->query($query);
 
 
 // Get info for each POS
@@ -64,7 +68,7 @@ while ($row_pos = $res_POS->fetch_assoc()) {
 	
 	// Retrieve fuel list
 	$query = "SELECT * FROM corpFuel WHERE `ownerID`='".$ownerID."' AND `posID`='".$row_pos['itemID']."'";
-	$res_fuel = $db_evetools->query($query);
+	$res_fuel = $db_yapeal->query($query);
 	
 	// Array to hold fuel amounts
 	$fuels = array();
@@ -120,6 +124,6 @@ while ($row_pos = $res_POS->fetch_assoc()) {
 $res_POS->close();
 #$res_fuel->close();
 #$res_tmp->close();
-$db_evetools->close();
+$db_yapeal->close();
 $db_staticdump->close();
 ?>

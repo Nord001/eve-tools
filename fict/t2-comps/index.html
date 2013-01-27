@@ -32,28 +32,28 @@
 <script type='text/javascript'>
 	$(document).ready(function() {
 		// Initialise year list once document loaded
-		$('#yearList').load('get-dates.php');
+		$('#yearList').load('/php/get-t2-comp-dates.php');
 		
 		// Update month list when year selected
 		$('#yearList').change(function() {
 			$('#priceList').html('');
 			$('#dayList').html('<option>Day:</option>');
 			var year = $('#yearList').val();
-			$('#monthList').load('get-dates.php?year='+year);
+			$('#monthList').load('/php/get-t2-comp-dates.php?year='+year);
 		});
 		// Update day list when month selected
 		$('#monthList').change(function() {
 			$('#priceList').html('');
 			var year = $('#yearList').val();
 			var month = $('#monthList').val();
-			$('#dayList').load('get-dates.php?year='+year+'&month='+month);
+			$('#dayList').load('/php/get-t2-comp-dates.php?year='+year+'&month='+month);
 		});
 		// Generate price list when day selected
 		$('#dayList').change(function() {
 			var year = $('#yearList').val();
 			var month = $('#monthList').val();
 			var day = $('#dayList').val();
-			$('#priceList').load('get-prices.php?date='+year+'_'+month+'_'+day);
+			$('#priceList').load('/php/get-t2-comp-prices.php?date='+year+'_'+month+'_'+day);
 		});
 	});
 </script>

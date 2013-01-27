@@ -48,7 +48,7 @@
 <script type='text/javascript'>
 	$(document).ready(function() {
 		// Initialise POS list once document loaded
-		$.get('get-pos.php?corp=kazo', function(data) {
+		$.get('/php/get-pos.php?corp=kazo', function(data) {
 			$('#posList').append(data);
 		});
 	});

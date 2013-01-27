@@ -19,7 +19,7 @@ $(document).ready(function() {
 	};
 	
 	// Retrieve json object and plot data
-	$.getJSON('/php/data.php', function(datasets) {
+	$.getJSON('/php/get-wallet-data.php', function(datasets) {
 		var data = [];
 		$.each(datasets, function(key, val) {
 			data.push(datasets[key]);
