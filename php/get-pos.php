@@ -38,18 +38,6 @@ while ($row_pos = $res_POS->fetch_assoc()) {
 	// New table row
 	echo '<tr>';
 
-	// POS type
-	$query = "SELECT typeName FROM invTypes WHERE `typeID`='".$row_pos['typeID']."'";
-	$res_tmp = $db_staticdump->query($query);
-	$posType = $res_tmp->fetch_row();
-	echo '<td>'.$posType[0].'</td>';
-	
-	// Location
-	$query = "SELECT itemName FROM invNames WHERE `itemID`='".$row_pos['moonID']."'";
-	$res_tmp = $db_staticdump->query($query);
-	$posLoc = $res_tmp->fetch_row();
-	echo '<td>'.$posLoc[0].'</td>';
-	
 	// Current status
 	$state = $row_pos['state'];
 	if ($state == 0) {
@@ -63,32 +51,50 @@ while ($row_pos = $res_POS->fetch_assoc()) {
 	} else if ($state == 4) {
 		$state = "Online since ".$row_pos['onlineTimestamp'];
 	}
+
+	// Location
+	if ($state == "Unachored!") {
+		$query = "SELECT itemName FROM invNames WHERE `itemID`='".$row_pos['locationID']."'";
+	} else {
+		$query = "SELECT itemName FROM invNames WHERE `itemID`='".$row_pos['moonID']."'";
+	}
+	$res_tmp = $db_staticdump->query($query);
+	$posLoc = $res_tmp->fetch_row();
+
+	// POS type
+	$query = "SELECT typeName FROM invTypes WHERE `typeID`='".$row_pos['typeID']."'";
+	$res_tmp = $db_staticdump->query($query);
+	$posType = $res_tmp->fetch_row();
+
+	// Echo POS list
+	echo '<td>'.$posLoc[0].'</td>';
+	echo '<td>'.$posType[0].'</td>';
 	echo '<td>'.$state.'</td>';
-	
-	
-	// Retrieve fuel list
-	$query = "SELECT * FROM corpFuel WHERE `ownerID`='".$ownerID."' AND `posID`='".$row_pos['itemID']."'";
-	$res_fuel = $db_yapeal->query($query);
-	
-	// Array to hold fuel amounts
-	$fuels = array();
-	
-	while ($row_fuel = $res_fuel->fetch_assoc()) {
-		// Fuel type
-		$query = "SELECT typeName FROM invTypes WHERE `typeID`='".$row_fuel['typeID']."'";
-		$res_tmp = $db_staticdump->query($query);
-		$fuelType = $res_tmp->fetch_row();
-		$fuelType = $fuelType[0];
-		
-		if (preg_match("/block/i",$fuelType)) {
-			$fuels['blocks'] = $row_fuel['quantity'];
-		} else if (preg_match("/Charter/i",$fuelType)) {
-			$fuels['charters'] = $row_fuel['quantity'];
-		} else if (preg_match("/Stront/i",$fuelType)) {
-			$fuels['stront'] = $row_fuel['quantity'];
-		}
-	}	echo '<td>'.$fuelType.'</td>';
-	
+
+
+#	// Retrieve fuel list
+#	$query = "SELECT * FROM corpFuel WHERE `ownerID`='".$ownerID."' AND `posID`='".$row_pos['itemID']."'";
+#	$res_fuel = $db_yapeal->query($query);
+#	
+#	// Array to hold fuel amounts
+#	$fuels = array();
+#	
+#	while ($row_fuel = $res_fuel->fetch_assoc()) {
+#		// Fuel type
+#		$query = "SELECT typeName FROM invTypes WHERE `typeID`='".$row_fuel['typeID']."'";
+#		$res_tmp = $db_staticdump->query($query);
+#		$fuelType = $res_tmp->fetch_row();
+#		$fuelType = $fuelType[0];
+#		
+#		if (preg_match("/block/i",$fuelType)) {
+#			$fuels['blocks'] = $row_fuel['quantity'];
+#		} else if (preg_match("/Charter/i",$fuelType)) {
+#			$fuels['charters'] = $row_fuel['quantity'];
+#		} else if (preg_match("/Stront/i",$fuelType)) {
+#			$fuels['stront'] = $row_fuel['quantity'];
+#		}
+#	}	echo '<td>'.$fuelType.'</td>';
+
 	// Fuel blocks
 #	if ($fuels['blocks']) {
 #		echo '<td>'.$fuels['blocks'].'</td>';
@@ -115,6 +121,7 @@ while ($row_pos = $res_POS->fetch_assoc()) {
 #	
 #	// Reinforcement timer
 #	echo '<td>'.$fuels['reinfTime'].'</td>';
+
 
 	// End of table row
 	echo '</tr>';	
