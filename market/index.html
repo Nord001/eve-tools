@@ -1,0 +1,72 @@
+<html>
+    <head>
+    </head>
+    
+    <body>
+    <script type="text/javascript">
+
+        var i;
+        var timeout;
+        var mat_ids = Array(16670,17317,16673,16683,16679,16682,16681,16680,16678,16671,16672);
+        var comp_ids = Array(11549,11694,11532,11689,11557,11539,11537,11554,11543,11534,11693,11550,11533,11540,11552,11690,11558,11544,11545,11547,11531,11535,11553,11688,11541,11695,11556,11555,11551,11542,11536,11538,11692,11548,11530,11691);
+
+        function start_lookup_moon_mats()
+        {
+            i = 0;
+            timeout = setInterval("lookup_moon_mats()",2000);
+        }
+        
+        function start_lookup_comps()
+        {
+            timeout = setInterval("lookup_comps()",2000);
+        }
+
+
+        function lookup_moon_mats()
+        {
+            if (i < 11)
+            {
+                CCPEVE.showMarketDetails(mat_ids[i]);
+                i++;
+            }
+            else
+            {
+                clearInterval(timeout);
+                i = 0;
+                start_lookup_comps();
+            }
+        }
+        
+        function lookup_comps()
+        {
+            if (i < 36)
+            {
+                CCPEVE.showMarketDetails(comp_ids[i]);
+                i++;
+            }
+            else
+            {
+                clearInterval(timeout);
+            }
+        }
+        
+    </script>
+    
+    <br>
+    Delete all cache files before checking!<br>
+    <br>
+    <button type="button" onclick="start_lookup_moon_mats()">Click to start checking market for T2 component manufacturing</button>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <FORM ACTION="#" NAME="viewMarketDetails">
+    Enter typeID
+    <INPUT TYPE=TEXT NAME="typeID">
+    </FORM>
+
+    <button type="button" onclick="CCPEVE.showMarketDetails(document.viewMarketDetails.typeID.value)">Click to check market details</button>
+     
+    </body>
+</html>
