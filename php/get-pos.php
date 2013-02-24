@@ -1,5 +1,5 @@
 <?php
-// Get variables from URL
+// Get variables from URL...
 $corp = $_GET['corp'];
 
 // DB username and password
